@@ -17,9 +17,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.lm.xpto.systems.api.model.Cidade;
+import com.example.lm.xpto.systems.api.model.UfQtdeCidade;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -74,7 +76,7 @@ public class CidadeRepositoryImpl implements CidadeRepositoryQuery {
 	}
 	
 	@Override
-	public List<Cidade> getNumberOfCitiesByState() throws Exception {
+	public List<UfQtdeCidade> getNumberOfCitiesByState() throws Exception {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Cidade> criteria = builder.createQuery(Cidade.class);
 		Root<Cidade> root = criteria.from(Cidade.class);

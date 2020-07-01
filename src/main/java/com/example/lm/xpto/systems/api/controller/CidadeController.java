@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.lm.xpto.systems.api.model.Cidade;
+import com.example.lm.xpto.systems.api.model.UfQtdeCidade;
 import com.example.lm.xpto.systems.api.repository.CidadeRepository;
 
 @RestController
@@ -76,9 +77,9 @@ public class CidadeController {
 		return cidadeRepository.getStatesWithTheLargestAndSmallestNumberOfCities();
 	}
 
-	//TODO: 4. (GET) Retornar a quantidade de cidades por estado;
+	//TODO: 4. Retornar a quantidade de cidades por estado;
 	@GetMapping("/estados")
-	public List<Cidade> getNumberOfCitiesByState() throws Exception {
+	public List<UfQtdeCidade> getNumberOfCitiesByState() throws Exception {
 		return cidadeRepository.getNumberOfCitiesByState();
 	}
 	
