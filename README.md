@@ -1,5 +1,5 @@
 # lm-xpto-systems-api
- API para leitura (CSV) e manutenção de uma lista de cidades
+ API REST para leitura (CSV) e manutenção de uma lista de cidades
 
 ## Tecnologias
 - Ambiente de desenvolvimento (IDE): [Spring Tool Suite 3](https://github.com/spring-projects/toolsuite-distribution/wiki/Spring-Tool-Suite-3) Version: 3.9.11.RELEASE
