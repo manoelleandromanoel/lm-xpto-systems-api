@@ -13,7 +13,7 @@
 	<artifactId>lm-xpto-systems-api</artifactId>
 	<version>1.0.0</version>
 	<name>lm-xpto-systems-api</name>
-	<description>API para leitura (CSV) e manutenção de uma lista de cidades</description>
+	<description>API REST para leitura (CSV) e manutenção de uma lista de cidades</description>
 
 	<properties>
 		<java.version>1.8</java.version>
