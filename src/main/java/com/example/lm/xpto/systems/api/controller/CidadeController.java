@@ -62,7 +62,6 @@ public class CidadeController {
 	public List<Cidade> getCapitalCitiesOrderedByName() throws Exception {
 		return cidadeRepository.getCapitalCitiesOrderedByName();
 	}
-
 	
 	//TODO: 3. Retornar o nome do estado com a maior e menor quantidade de cidades e a quantidade de cidades;
 	/**
@@ -80,7 +79,7 @@ public class CidadeController {
 	//TODO: 4. Retornar a quantidade de cidades por estado;
 	@GetMapping("/estados")
 	public List<UfQtdeCidade> getNumberOfCitiesByState() throws Exception {
-		return cidadeRepository.getNumberOfCitiesByState();
+		return null;// cidadeRepository.getNumberOfCitiesByState();
 	}
 	
 	/**
@@ -153,10 +152,19 @@ public class CidadeController {
 		}
 	}
 	
-	//TODO: 10. Retornar a quantidade de registro baseado em uma coluna. Não deve contar itens iguais;
+	/**
+	 * 10. Retornar a quantidade de registro baseado em uma coluna. Não deve contar itens iguais
+	 * @param col
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("by/column")
-	public Long getQtdeByColumn(@RequestParam("col") String col) throws Exception {
-		return cidadeRepository.getQtdeByColumn(col);
+	public ResponseEntity<Long> getQtdeByColumn(@RequestParam("col") String col) throws Exception {
+		if (null != col) {
+			return ResponseEntity.ok(cidadeRepository.getQtdeByColumn(col));
+		} else {
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}
 	}
 	
 	/**

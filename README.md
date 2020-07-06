@@ -49,7 +49,8 @@ Com o json de exemplo: { "ibge_id": 99999, "uf": "SP", "name": "CIDADE DE TESTE 
 9. Permitir selecionar uma coluna (do CSV) e através dela entrar com uma string para filtrar. retornar assim todos os objetos que contenham tal string;
 - **@GET** 'http://localhost:9000/cidades?col=""&val=""'
 
-//TODO 10. Retornar a quantidade de registro baseado em uma coluna. Não deve contar itens iguais;
+10. Retornar a quantidade de registro baseado em uma coluna. Não deve contar itens iguais;
+- **@GET** 'http://localhost:9000/cidades/by/column?col=""&val=""'
 
 11. Retornar a quantidade de registros total;
 - **@GET** 'http://localhost:9000/cidades/total' 

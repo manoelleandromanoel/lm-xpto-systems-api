@@ -6,6 +6,15 @@ public class UfQtdeCidade {
 	
 	private Long qtdeCidades;
 
+	public UfQtdeCidade() {
+		//Construtor padrão
+	}
+	
+	public UfQtdeCidade(final String uf, final Long qtdeCidades) {
+		this.uf = uf;
+		this.qtdeCidades = qtdeCidades;
+	}
+	
 	public String getUf() {
 		return uf;
 	}

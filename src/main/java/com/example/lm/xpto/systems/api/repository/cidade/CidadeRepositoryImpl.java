@@ -12,12 +12,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaBuilder.Case;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.criterion.Restrictions;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.lm.xpto.systems.api.model.Cidade;
@@ -64,13 +62,15 @@ public class CidadeRepositoryImpl implements CidadeRepositoryQuery {
 
 	@Override
 	public List<Cidade> getStatesWithTheLargestAndSmallestNumberOfCities() throws Exception {
-		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Cidade> criteria = builder.createQuery(Cidade.class);
-		Root<Cidade> root = criteria.from(Cidade.class);
+		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		CriteriaQuery<Cidade> tabela = criteriaBuilder.createQuery(Cidade.class);
+		Root<Cidade> root = tabela.from(Cidade.class);
+		
+		tabela.getSelection();
 		
 		List<Predicate> predicates = new ArrayList<>();
 		
-//		predicates.add(builder.co );
+//		predicates.add(criteriaBuilder);
 		
 		return null;
 	}

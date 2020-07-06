@@ -15,6 +15,11 @@ public interface CidadeRepositoryQuery {
 
 	public List<Cidade> getStatesWithTheLargestAndSmallestNumberOfCities() throws Exception;
 	
+//	@Query("select new com.example.lm.xpto.systems.api.model.UfQtdeCidade(uf.sigla, count(*) as qtde) "
+//		   + "from com.example.lm.xpto.systems.api.model.Cidade c "
+//		   + "join c.estado uf "
+//		   + "group by uf.id "
+//		   + "order by qtde desc ")
 	public List<UfQtdeCidade> getNumberOfCitiesByState() throws Exception;
 
 	public List<String> getCityByState(String uf) throws Exception;
