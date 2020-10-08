@@ -1,4 +1,4 @@
-package com.example.lm.xpto.systems.api.model;
+package com.example.lm.xpto.systems.api.cities.domain;
 
 import java.math.BigDecimal;
 
@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
-@Entity(name = "CIDADE")
-public class Cidade {
+@Entity(name = "CITY")
+public class City {
 	
 	@Id
 	@CsvBindByName
@@ -148,7 +148,7 @@ public class Cidade {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cidade other = (Cidade) obj;
+		City other = (City) obj;
 		if (ibge_id == null) {
 			if (other.ibge_id != null)
 				return false;
@@ -157,4 +157,19 @@ public class Cidade {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "City{" +
+				"ibge_id=" + ibge_id +
+				", uf='" + uf + '\'' +
+				", name='" + name + '\'' +
+				", capital=" + capital +
+				", lon=" + lon +
+				", lat=" + lat +
+				", no_accents='" + no_accents + '\'' +
+				", alternative_names='" + alternative_names + '\'' +
+				", microregion='" + microregion + '\'' +
+				", mesoregion='" + mesoregion + '\'' +
+				'}';
+	}
 }

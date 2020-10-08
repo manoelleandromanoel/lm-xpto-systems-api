@@ -1,4 +1,4 @@
-package com.example.lm.xpto.systems.api.model;
+package com.example.lm.xpto.systems.api.cities.domain;
 
 public enum Estado {
 

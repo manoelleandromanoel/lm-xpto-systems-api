@@ -1,5 +1,5 @@
 # lm-xpto-systems-api
- API REST para leitura (CSV) e manutenção de uma lista de cidades
+ API REST para leitura (CSV) e manutenção de uma lista de 
 
 ## Tecnologias
 - Ambiente de desenvolvimento (IDE): [Spring Tool Suite 3](https://github.com/spring-projects/toolsuite-distribution/wiki/Spring-Tool-Suite-3) Version: 3.9.11.RELEASE
@@ -29,9 +29,11 @@ Com o arquivo de 'Desafio Cidades - Back End.csv' que se encontra na raiz do pro
 2. Retornar as cidades que são capitais ordenadas por nome
 - **@GET** 'http://localhost:9000/cidades/capitais'
 
-//TODO 3. Retornar o nome do estado com a maior e menor quantidade de cidades e a quantidade de cidades;
+3. Retornar o nome do estado com a maior e menor quantidade de cidades e a quantidade de cidades;
+- **@GET** 'http://localhost:9000/cidades/tamanho/estados/cidades'
 
-//TODO 4. Retornar a quantidade de cidades por estado;
+4. Retornar a quantidade de cidades por estado;
+- **@GET** 'http://localhost:9000/cidades/estados'
 
 5. Obter os dados da cidade informando o id do IBGE;
 - **@GET** 'http://localhost:9000/cidades/{ibge_id}'
@@ -55,4 +57,4 @@ Com o json de exemplo: { "ibge_id": 99999, "uf": "SP", "name": "CIDADE DE TESTE 
 11. Retornar a quantidade de registros total;
 - **@GET** 'http://localhost:9000/cidades/total' 
 
-//TODO 12. Dentre todas as cidades, obter as duas cidades mais distantes uma da outra com base na localização (distância em KM em linha reta);
+//TODO 12. Dentre todas as cidades, obter as duas cities mais distantes uma da outra com base na localização (distância em KM em linha reta);
