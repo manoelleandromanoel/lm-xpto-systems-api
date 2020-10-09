@@ -3,7 +3,6 @@ package com.example.lm.xpto.systems.api.cities.repository;
 import com.example.lm.xpto.systems.api.cities.domain.City;
 import com.example.lm.xpto.systems.api.cities.domain.UFNumberOfCitiesDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 

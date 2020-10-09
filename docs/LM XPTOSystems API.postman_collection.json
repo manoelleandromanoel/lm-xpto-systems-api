@@ -56,6 +56,48 @@
 			"response": []
 		},
 		{
+			"name": "3 - getStatesWithTheLargestAndSmallestNumberOfCities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/cidades/tamanho/estados/cidades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cidades",
+						"tamanho",
+						"estados",
+						"cidades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - getNumberOfCitiesByState",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/cidades/estados",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cidades",
+						"estados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "5 - getCidadeByIBGE_ID",
 			"request": {
 				"method": "GET",
@@ -203,6 +245,26 @@
 		},
 		{
 			"name": "11 - getQtdeCidadesTotal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/cidades/total",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"cidades",
+						"total"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12 - getMoreDistantCities",
 			"request": {
 				"method": "GET",
 				"header": [],

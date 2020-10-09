@@ -7,48 +7,48 @@ import java.util.Objects;
 
 public class UFNumberOfCitiesDTO implements Serializable {
 
-	@JsonProperty("UF")
-	private final String uf;
+    @JsonProperty("UF")
+    private final String uf;
 
-	@JsonProperty("NumeroCidades")
-	private final Long numberOfCities;
+    @JsonProperty("NumeroCidades")
+    private final Long numberOfCities;
 
-	public UFNumberOfCitiesDTO() {
-		this(null, null);
-	}
-	
-	public UFNumberOfCitiesDTO(final String uf, final Long numberOfCities) {
-		this.uf = uf;
-		this.numberOfCities = numberOfCities;
-	}
+    public UFNumberOfCitiesDTO() {
+        this(null, null);
+    }
 
-	public String getUf() {
-		return uf;
-	}
+    public UFNumberOfCitiesDTO(final String uf, final Long numberOfCities) {
+        this.uf = uf;
+        this.numberOfCities = numberOfCities;
+    }
 
-	public Long getNumberOfCities() {
-		return numberOfCities;
-	}
+    public String getUf() {
+        return uf;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		UFNumberOfCitiesDTO that = (UFNumberOfCitiesDTO) o;
-		return Objects.equals(uf, that.uf) &&
-				Objects.equals(numberOfCities, that.numberOfCities);
-	}
+    public Long getNumberOfCities() {
+        return numberOfCities;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(uf, numberOfCities);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UFNumberOfCitiesDTO that = (UFNumberOfCitiesDTO) o;
+        return Objects.equals(uf, that.uf) &&
+                Objects.equals(numberOfCities, that.numberOfCities);
+    }
 
-	@Override
-	public String toString() {
-		return "UFNumberOfCitiesDTO{" +
-				"uf='" + uf + '\'' +
-				", numberOfCities=" + numberOfCities +
-				'}';
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(uf, numberOfCities);
+    }
+
+    @Override
+    public String toString() {
+        return "UFNumberOfCitiesDTO{" +
+                "uf='" + uf + '\'' +
+                ", numberOfCities=" + numberOfCities +
+                '}';
+    }
 }

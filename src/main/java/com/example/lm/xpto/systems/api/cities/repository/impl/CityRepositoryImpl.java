@@ -1,11 +1,10 @@
 package com.example.lm.xpto.systems.api.cities.repository.impl;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.lm.xpto.systems.api.cities.domain.City;
+import com.example.lm.xpto.systems.api.cities.repository.CityRepositoryQuery;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,13 +13,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import com.example.lm.xpto.systems.api.cities.domain.City;
-import com.example.lm.xpto.systems.api.cities.repository.CityRepositoryQuery;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CityRepositoryImpl implements CityRepositoryQuery {
 

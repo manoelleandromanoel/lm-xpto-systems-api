@@ -2,8 +2,8 @@ package com.example.lm.xpto.systems.api.cities.domain;
 
 public enum Estado {
 
-	ACRE("Acre", "AC"),
-	ALAGOAS("Alagoas", "AL"),
+    ACRE("Acre", "AC"),
+    ALAGOAS("Alagoas", "AL"),
     AMAPA("Amapá", "AP"),
     AMAZONAS("Amazonas", "AM"),
     BAHIA("Bahia", "BA"),
@@ -29,17 +29,17 @@ public enum Estado {
     SAOPAULO("São Paulo", "SP"),
     SERGIPE("Sergipe", "SE"),
     TOCANTINS("Tocantins", "TO");
-	
-	private String nome;
+
+    private String nome;
     private String sigla;
-    
+
     private Estado(String sigla) {
-    	this.sigla = sigla;
+        this.sigla = sigla;
     }
-    
+
     private Estado(String nome, String sigla) {
         this.nome = nome;
-        this.sigla = sigla;       
+        this.sigla = sigla;
     }
 
     public String getNome() {
@@ -49,5 +49,5 @@ public enum Estado {
     public String getSigla() {
         return sigla;
     }
-	
+
 }

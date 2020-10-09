@@ -38,7 +38,7 @@ Com o arquivo de 'Desafio Cidades - Back End.csv' que se encontra na raiz do pro
 5. Obter os dados da cidade informando o id do IBGE;
 - **@GET** 'http://localhost:9000/cidades/{ibge_id}'
 
-6. Retornar o nome das cidades baseado em um estado selecionado;
+6. Retornar o nome das cidades, baseado num estado selecionado;
 - **@GET** 'http://localhost:9000/cidades/by/estado/{uf}' 
 
 7. Permitir adicionar uma nova Cidade;
@@ -57,4 +57,5 @@ Com o json de exemplo: { "ibge_id": 99999, "uf": "SP", "name": "CIDADE DE TESTE 
 11. Retornar a quantidade de registros total;
 - **@GET** 'http://localhost:9000/cidades/total' 
 
-//TODO 12. Dentre todas as cidades, obter as duas cities mais distantes uma da outra com base na localização (distância em KM em linha reta);
+12. Dentre todas as cidades, obter as duas cities mais distantes uma da outra com base na localização (distância em KM em linha reta).
+- **@GET** 'http://localhost:9000/cidades/distancia' 
