@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,14 +39,11 @@ public class CityController {
      * @return
      * @throws Exception
      */
-    @PostMapping(value = "/upload") // , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping(value = "/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            List<City> cities = cityRepository.uploadFile(file);
-
-            List<City> importedCities = cityRepository.saveAll(cities);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(importedCities.size() + " cidades importadas.");
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(cityService.uploadFile(file).size() + " cidades importadas.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro ao integrar arquivo: \n\n" + e.getMessage());
         }
@@ -61,7 +57,7 @@ public class CityController {
      */
     @GetMapping("/capitais")
     public List<City> getCapitalCitiesOrderedByName() throws Exception {
-        return cityRepository.getCapitalCitiesOrderedByName();
+        return cityService.getCapitalCitiesOrderedByName();
     }
 
     /**
@@ -108,7 +104,7 @@ public class CityController {
      */
     @GetMapping("/by/estado/{uf}")
     public List<String> getCityByState(@PathVariable String uf) throws Exception {
-        return cityRepository.getCityByState(uf);
+        return cityService.getCityByState(uf);
     }
 
     /**

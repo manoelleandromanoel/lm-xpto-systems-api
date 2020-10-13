@@ -2,9 +2,6 @@ package com.example.lm.xpto.systems.api.cities.repository.impl;
 
 import com.example.lm.xpto.systems.api.cities.domain.City;
 import com.example.lm.xpto.systems.api.cities.repository.CityRepositoryQuery;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,10 +10,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,65 +17,6 @@ public class CityRepositoryImpl implements CityRepositoryQuery {
 
     @PersistenceContext
     private EntityManager manager;
-
-    @Override
-    public List<City> uploadFile(MultipartFile file) throws Exception {
-        Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
-
-        CsvToBean<City> csvToBean = new CsvToBeanBuilder<City>(reader)
-                .withType(City.class)
-                .withIgnoreLeadingWhiteSpace(true)
-                .withSkipLines(1) //ignorar a linha do cabeçalho
-                .build();
-
-        return csvToBean.parse();
-    }
-
-    @Override
-    public List<City> getCapitalCitiesOrderedByName() throws Exception {
-        CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<City> criteria = builder.createQuery(City.class);
-        Root<City> root = criteria.from(City.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        predicates.add(builder.equal(root.get("capital"), Boolean.TRUE));
-
-        criteria.where(predicates.toArray(new Predicate[predicates.size()]));
-
-        criteria.orderBy(builder.asc(root.get("name")));
-
-        TypedQuery<City> query = manager.createQuery(criteria);
-
-        return query.getResultList();
-    }
-
-    @Override
-    public List<String> getCityByState(String uf) throws Exception {
-        CriteriaBuilder builder = manager.getCriteriaBuilder();
-        CriteriaQuery<City> criteria = builder.createQuery(City.class);
-        Root<City> root = criteria.from(City.class);
-
-        List<Predicate> predicates = new ArrayList<>();
-
-        predicates.add(builder.equal(root.get("uf"), uf.toUpperCase()));
-
-        criteria.where(predicates.toArray(new Predicate[predicates.size()]));
-
-        criteria.orderBy(builder.asc(root.get("name")));
-
-        TypedQuery<City> query = manager.createQuery(criteria);
-
-        List<City> cities = query.getResultList();
-
-        List<String> ret = new ArrayList<>();
-
-        for (City c : cities) {
-            ret.add(c.getName());
-        }
-
-        return ret;
-    }
 
     @Override
     public List<City> findByColumn(String col, String val) throws Exception {

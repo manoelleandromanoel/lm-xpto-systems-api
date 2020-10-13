@@ -16,7 +16,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/C:/gitHubProjects/lm-xpto-systems-api/Desafio Cidades - Back End.csv"
+							"src": "/C:/gitHubProjects/lm-xpto-systems-api/docs/Desafio Cidades - Back End.csv"
 						}
 					]
 				},
@@ -123,7 +123,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9000/cidades/by/estado/ac",
+					"raw": "http://localhost:9000/cidades/by/estado/sp",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -133,7 +133,7 @@
 						"cidades",
 						"by",
 						"estado",
-						"ac"
+						"sp"
 					]
 				}
 			},
@@ -269,7 +269,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9000/cidades/total",
+					"raw": "http://localhost:9000/cidades/distancia",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -277,7 +277,7 @@
 					"port": "9000",
 					"path": [
 						"cidades",
-						"total"
+						"distancia"
 					]
 				}
 			},
