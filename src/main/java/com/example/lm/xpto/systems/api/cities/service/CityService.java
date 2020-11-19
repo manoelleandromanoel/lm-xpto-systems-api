@@ -1,7 +1,7 @@
 package com.example.lm.xpto.systems.api.cities.service;
 
 import com.example.lm.xpto.systems.api.cities.domain.City;
-import com.example.lm.xpto.systems.api.cities.domain.UFNumberOfCitiesDTO;
+import com.example.lm.xpto.systems.api.cities.dto.UFNumberOfCitiesDTO;
 import com.example.lm.xpto.systems.api.cities.repository.CityRepository;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -41,7 +41,7 @@ public class CityService {
         return cityRepository.saveAll(csvToBean.parse());
     }
 
-    public List<City> getCapitalCitiesOrderedByName() throws Exception {
+    public List<City> getCapitalCitiesOrderedByName() {
         return cityRepository.findAll().stream()
                 .filter(c -> Boolean.TRUE.equals(c.getCapital()))
                 .sorted(Comparator.comparing(City::getName))
@@ -57,7 +57,7 @@ public class CityService {
         );
     }
 
-    public List<String> getCityByState(String uf) throws Exception {
+    public List<String> getCityByState(String uf) {
         List<City> cities = cityRepository.findAll().stream()
                 .filter(c -> c.getUf().equalsIgnoreCase(uf))
                 .sorted(Comparator.comparing(City::getName))
@@ -76,8 +76,8 @@ public class CityService {
         List<City> allCities = cityRepository.findAll();
 
         double ultimaDistancia = 0;
-        City cidadeDistante1 = null;
-        City cidadeDistante2 = null;
+        City cidadeDistante1 = new City();
+        City cidadeDistante2 = new City();
 
         for (final City city1 : allCities) {
             for (final City city2 : allCities) {
@@ -93,8 +93,8 @@ public class CityService {
             }
         }
 
-        return "As cidades mais distantes são: " + cidadeDistante1.getAlternative_names() + "/" + cidadeDistante1.getUf() +
-                " e " + cidadeDistante2.getAlternative_names() + "/" + cidadeDistante1.getUf() +
+        return "As cidades mais distantes são: " + cidadeDistante1.getNo_accents() + "/" + cidadeDistante1.getUf() +
+                " e " + cidadeDistante2.getNo_accents() + "/" + cidadeDistante2.getUf() +
                 ". Distância de: " + BigDecimal.valueOf(ultimaDistancia).setScale(2, RoundingMode.HALF_UP) + " km";
     }
 

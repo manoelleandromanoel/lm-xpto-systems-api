@@ -1,7 +1,9 @@
 package com.example.lm.xpto.systems.api.cities.controller;
 
+import com.example.lm.xpto.systems.api.cities.CityResource;
 import com.example.lm.xpto.systems.api.cities.domain.City;
-import com.example.lm.xpto.systems.api.cities.domain.UFNumberOfCitiesDTO;
+import com.example.lm.xpto.systems.api.cities.dto.CityDTO;
+import com.example.lm.xpto.systems.api.cities.dto.UFNumberOfCitiesDTO;
 import com.example.lm.xpto.systems.api.cities.repository.CityRepository;
 import com.example.lm.xpto.systems.api.cities.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/cidades")
-public class CityController {
+public class CityController implements CityResource {
 
     private final CityRepository cityRepository;
 
@@ -32,13 +32,6 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    /**
-     * 1. LER o arquivo CSV para a base de dados
-     *
-     * @param file
-     * @return
-     * @throws Exception
-     */
     @PostMapping(value = "/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
@@ -49,118 +42,60 @@ public class CityController {
         }
     }
 
-    /**
-     * 2. Retornar as cidades que são capitais ordenadas por nome
-     *
-     * @return
-     * @throws Exception
-     */
     @GetMapping("/capitais")
-    public List<City> getCapitalCitiesOrderedByName() throws Exception {
-        return cityService.getCapitalCitiesOrderedByName();
+    public List<CityDTO> getCapitalCitiesOrderedByName() throws Exception {
+        return CityHelper.toCityDTOList(cityService.getCapitalCitiesOrderedByName());
     }
 
-    /**
-     * 3. Retornar o nome do estado com a maior e menor quantidade de cidades e a quantidade de cidades
-     *
-     * @return
-     * @throws Exception
-     */
     @GetMapping("/tamanho/estados/cidades")
     public List<UFNumberOfCitiesDTO> getStatesWithTheLargestAndSmallestNumberOfCities() throws Exception {
         return cityService.getStatesWithTheLargestAndSmallestNumberOfCities();
     }
 
-    /**
-     * 4. Retornar a quantidade de cidades por estado;
-     *
-     * @return
-     * @throws Exception
-     */
     @GetMapping("/estados")
     public List<UFNumberOfCitiesDTO> getNumberOfCitiesByState() throws Exception {
         return cityRepository.getNumberOfCitiesByState();
     }
 
-    /**
-     * 5. Obter os dados da cidade informando o id do IBGE
-     *
-     * @param ibge_id
-     * @return
-     */
     @GetMapping("/{ibge_id}")
-    public ResponseEntity<Optional<City>> findById(@PathVariable Long ibge_id) {
-        Optional<City> cidade = cityRepository.findById(ibge_id);
+    public ResponseEntity<CityDTO> findById(@PathVariable Long ibge_id) {
+        Optional<City> city = cityRepository.findById(ibge_id);
 
-        return cidade.isPresent() ? ResponseEntity.ok(cidade) : ResponseEntity.notFound().build();
+        return city.map(c -> ResponseEntity.ok(CityHelper.toCityDTO(c))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    /**
-     * 6. Retornar o nome das cidades baseado em um estado selecionado;
-     *
-     * @param uf
-     * @return
-     * @throws Exception
-     */
     @GetMapping("/by/estado/{uf}")
     public List<String> getCityByState(@PathVariable String uf) throws Exception {
         return cityService.getCityByState(uf);
     }
 
-    /**
-     * 7. Permitir adicionar uma nova City
-     *
-     * @param city
-     * @param response
-     * @return
-     */
     @PostMapping
-    public ResponseEntity<City> addCidade(@Valid @RequestBody City city, HttpServletResponse response) {
+    public ResponseEntity<CityDTO> addCidade(@Valid @RequestBody CityDTO cityDTO) {
         try {
-            City citySalva = cityRepository.save(city);
+            CityDTO savedCity = CityHelper.toCityDTO(cityRepository.save(CityHelper.toCity(cityDTO)));
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(citySalva);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedCity);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(city);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cityDTO);
         }
     }
 
-    /**
-     * 8. Permitir deletar uma cidade
-     *
-     * @param ibge_id
-     */
     @DeleteMapping("/{ibge_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long ibge_id) {
         cityRepository.deleteById(ibge_id);
     }
 
-    /**
-     * 9. Permitir selecionar uma coluna (do CSV) e através dela entrar com uma string para filtrar. retornar assim todos os objetos que contenham tal string
-     *
-     * @param col
-     * @param val
-     * @return
-     */
     @GetMapping
-    public ResponseEntity<Object> findByColumn(@RequestParam("col") String col, @RequestParam("val") String val) {
-        try {
-            List<City> cities = cityRepository.findByColumn(col, val);
+    public ResponseEntity<List<CityDTO>> findByColumn(
+            @RequestParam("col") String col,
+            @RequestParam("val") String val
+    ) throws Exception {
+        List<CityDTO> cities = CityHelper.toCityDTOList(cityRepository.findByColumn(col, val));
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(cities);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(cities);
     }
 
-    /**
-     * 10. Retornar a quantidade de registro baseado em uma coluna. Não deve contar itens iguais
-     *
-     * @param col
-     * @return
-     * @throws Exception
-     */
     @GetMapping("by/column")
     public ResponseEntity<Long> getQtdeByColumn(@RequestParam("col") String col) throws Exception {
         if (null != col) {
@@ -170,21 +105,11 @@ public class CityController {
         }
     }
 
-    /**
-     * 11. Retornar a quantidade de registros total;
-     *
-     * @return
-     */
     @GetMapping("/total")
     public Long getQtdeCidades() {
         return cityRepository.count();
     }
 
-    /**
-     * 12. Dentre todas as cidades, obter as duas cidades mais distantes uma da outra com base na localização (distância em KM em linha reta);
-     *
-     * @return
-     */
     @GetMapping("/distancia")
     public String getMoreDistantCities() {
         return cityService.getMoreDistantCities();

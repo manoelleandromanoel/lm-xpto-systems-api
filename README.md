@@ -1,12 +1,12 @@
 # lm-xpto-systems-api
- API REST para leitura (CSV) e manutenção de uma lista de 
+ API REST para leitura (CSV) e manutenção de uma lista de cidades
 
 ## Tecnologias
-- Ambiente de desenvolvimento (IDE): [Spring Tool Suite 3](https://github.com/spring-projects/toolsuite-distribution/wiki/Spring-Tool-Suite-3) Version: 3.9.11.RELEASE
+- Ambiente de desenvolvimento (IDE): [IntelliJ IDEA](https://www.jetbrains.com/pt-br/idea/) Version: 2020.2.3 (Community Edition)
 - Linguagem de programação: [Java 8](https://www.java.com/pt_BR/download/faq/java8.xml)
-- Banco de dados: Foi utilizado o [H2](https://www.h2database.com/html/main.html) que é em memória, caso queira reinicializar os testes basta parar e subir a aplicação novamente. Para acessar o console do H2: http://localhost:9000/h2
-- Framework: [SpringBoot](https://spring.io/projects/spring-boot) 2.2.6
+- Framework: [SpringBoot](https://spring.io/projects/spring-boot) 2.3.1
 - Controle de dependências: [Maven](https://maven.apache.org/)
+- Banco de dados: [H2](https://www.h2database.com/html/main.html). Banco de dados em memória, caso queira reinicializar os testes basta parar e subir a aplicação novamente. Para acessar o console do H2: http://localhost:9000/h2
 
 ## Padrões
 - [RESTful](https://blog.caelum.com.br/rest-principios-e-boas-praticas/)
