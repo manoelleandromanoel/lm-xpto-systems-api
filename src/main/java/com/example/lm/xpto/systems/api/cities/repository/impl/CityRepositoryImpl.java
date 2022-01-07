@@ -1,6 +1,7 @@
 package com.example.lm.xpto.systems.api.cities.repository.impl;
 
 import com.example.lm.xpto.systems.api.cities.domain.City;
+import com.example.lm.xpto.systems.api.cities.domain.City_;
 import com.example.lm.xpto.systems.api.cities.repository.CityRepositoryQuery;
 
 import javax.persistence.EntityManager;
@@ -28,7 +29,7 @@ public class CityRepositoryImpl implements CityRepositoryQuery {
 
         criteria.where(predicates.toArray(new Predicate[predicates.size()]));
 
-        criteria.orderBy(builder.asc(root.get("name")));
+        criteria.orderBy(builder.asc(root.get(City_.NAME)));
 
         TypedQuery<City> query = manager.createQuery(criteria);
 
@@ -40,35 +41,35 @@ public class CityRepositoryImpl implements CityRepositoryQuery {
         List<Predicate> predicate = new ArrayList<>();
 
         switch (col) {
-            case "ibge_id":
-                predicate.add(builder.like(root.get("ibge_id"), val));
+            case City_.IBGE_ID:
+                predicate.add(builder.like(root.get(City_.IBGE_ID), val));
                 break;
-            case "uf":
-                predicate.add(builder.like(root.get("uf"), val));
+            case City_.UF:
+                predicate.add(builder.like(root.get(City_.UF), val));
                 break;
-            case "name":
-                predicate.add(builder.like(root.get("name"), "%" + val + "%"));
+            case City_.NAME:
+                predicate.add(builder.like(root.get(City_.NAME), "%" + val + "%"));
                 break;
-            case "capital":
-                predicate.add(builder.equal(root.get("capital"), Boolean.getBoolean(val)));
+            case City_.CAPITAL:
+                predicate.add(builder.equal(root.get(City_.CAPITAL), Boolean.getBoolean(val)));
                 break;
-            case "lon":
-                predicate.add(builder.like(root.get("lon"), val));
+            case City_.LON:
+                predicate.add(builder.like(root.get(City_.LON), val));
                 break;
-            case "lat":
-                predicate.add(builder.like(root.get("lat"), val));
+            case City_.LAT:
+                predicate.add(builder.like(root.get(City_.LAT), val));
                 break;
-            case "no_accents":
-                predicate.add(builder.like(root.get("no_accents"), val));
+            case City_.NO_ACCENTS:
+                predicate.add(builder.like(root.get(City_.NO_ACCENTS), val));
                 break;
-            case "alternative_names":
-                predicate.add(builder.like(root.get("alternative_names"), val));
+            case City_.ALTERNATIVE_NAMES:
+                predicate.add(builder.like(root.get(City_.ALTERNATIVE_NAMES), val));
                 break;
-            case "microregion":
-                predicate.add(builder.like(root.get("microregion"), val));
+            case City_.MICROREGION:
+                predicate.add(builder.like(root.get(City_.MICROREGION), val));
                 break;
-            case "mesoregion":
-                predicate.add(builder.like(root.get("mesoregion"), val));
+            case City_.MESOREGION:
+                predicate.add(builder.like(root.get(City_.MESOREGION), val));
                 break;
             default:
                 throw new Exception("Não foi possível encontrar a coluna: [" + col + "]");
@@ -84,9 +85,9 @@ public class CityRepositoryImpl implements CityRepositoryQuery {
         Root<City> root = criteria.from(City.class);
 
         try {
-            if ("capital".equals(col)) {
+            if (City_.CAPITAL.equals(col)) {
                 List<Predicate> predicates = new ArrayList<>();
-                predicates.add(builder.equal(root.get("capital"), Boolean.TRUE));
+                predicates.add(builder.equal(root.get(City_.CAPITAL), Boolean.TRUE));
                 criteria.where(predicates.toArray(new Predicate[predicates.size()]));
             } else {
                 criteria.select(root.get(col)).distinct(true);

@@ -146,7 +146,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"ibge_id\": 99999,\r\n    \"uf\": \"SP\",\r\n    \"name\": \"CIDADE DE TESTE DO ADDCIDADE\",\r\n    \"capital\": true,\r\n    \"lon\": -61.9998238963,\r\n    \"lat\": -11.9355403048,\r\n    \"no_accents\": \"CIDADE DE TESTE DO ADDCIDADE\",\r\n    \"alternative_names\": \"\",\r\n    \"microregion\": \"Cacoal\",\r\n    \"mesoregion\": \"Leste Rondoniense\"\r\n}",
+					"raw": "{\r\n    \"idIBGE\": 99999,\r\n    \"uf\": \"SP\",\r\n    \"nome\": \"CIDADE DE TESTE DO ADDCIDADE\",\r\n    \"capital\": true,\r\n    \"longitude\": -61.9998238963,\r\n    \"latitude\": -11.9355403048,\r\n    \"semAcentos\": \"CIDADE DE TESTE DO ADDCIDADE\",\r\n    \"nomeAlternativo\": \"\",\r\n    \"microregiao\": \"Cacoal\",\r\n    \"mesoregiao\": \"Leste Rondoniense\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

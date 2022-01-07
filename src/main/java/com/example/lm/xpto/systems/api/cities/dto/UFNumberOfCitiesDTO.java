@@ -1,4 +1,4 @@
-package com.example.lm.xpto.systems.api.cities.domain;
+package com.example.lm.xpto.systems.api.cities.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
