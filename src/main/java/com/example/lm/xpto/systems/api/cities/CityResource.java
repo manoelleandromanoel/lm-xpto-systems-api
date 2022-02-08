@@ -12,10 +12,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.List;
 
-@Validated
 @Api(value = "Cidade", tags = {"cidade"})
 @RequestMapping("/cidades")
 public interface CityResource {
@@ -93,7 +91,7 @@ public interface CityResource {
     })
     @PostMapping
     ResponseEntity<CityDTO> addCidade(
-            @Valid @RequestBody CityDTO cityDTO
+            @Validated @RequestBody CityDTO cityDTO
     );
 
     @ApiOperation(value = "8. Permite deletar uma cidade",

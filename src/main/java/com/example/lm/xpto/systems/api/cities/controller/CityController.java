@@ -9,10 +9,10 @@ import com.example.lm.xpto.systems.api.cities.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,53 +24,49 @@ public class CityController implements CityResource {
     private final CityService cityService;
 
     @Autowired
-    public CityController(
-            final CityRepository cityRepository,
-            final CityService cityService
-    ) {
+    public CityController(final CityRepository cityRepository, final CityService cityService) {
         this.cityRepository = cityRepository;
         this.cityService = cityService;
     }
 
-    @PostMapping(value = "/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    @Override
+    public ResponseEntity<String> uploadFile(@RequestParam("file") final MultipartFile file) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(cityService.uploadFile(file).size() + " cidades importadas.");
+            return ResponseEntity.status(HttpStatus.CREATED).body(cityService.uploadFile(file).size() + " cidades importadas.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro ao integrar arquivo: \n\n" + e.getMessage());
         }
     }
 
-    @GetMapping("/capitais")
-    public List<CityDTO> getCapitalCitiesOrderedByName() throws Exception {
+    @Override
+    public List<CityDTO> getCapitalCitiesOrderedByName() {
         return CityHelper.toCityDTOList(cityService.getCapitalCitiesOrderedByName());
     }
 
-    @GetMapping("/tamanho/estados/cidades")
+    @Override
     public List<UFNumberOfCitiesDTO> getStatesWithTheLargestAndSmallestNumberOfCities() throws Exception {
         return cityService.getStatesWithTheLargestAndSmallestNumberOfCities();
     }
 
-    @GetMapping("/estados")
+    @Override
     public List<UFNumberOfCitiesDTO> getNumberOfCitiesByState() throws Exception {
         return cityRepository.getNumberOfCitiesByState();
     }
 
-    @GetMapping("/{ibge_id}")
+    @Override
     public ResponseEntity<CityDTO> findById(@PathVariable Long ibge_id) {
         Optional<City> city = cityRepository.findById(ibge_id);
 
         return city.map(c -> ResponseEntity.ok(CityHelper.toCityDTO(c))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/by/estado/{uf}")
-    public List<String> getCityByState(@PathVariable String uf) throws Exception {
+    @Override
+    public List<String> getCityByState(@PathVariable String uf) {
         return cityService.getCityByState(uf);
     }
 
-    @PostMapping
-    public ResponseEntity<CityDTO> addCidade(@Valid @RequestBody CityDTO cityDTO) {
+    @Override
+    public ResponseEntity<CityDTO> addCidade(@Validated @RequestBody CityDTO cityDTO) {
         try {
             CityDTO savedCity = CityHelper.toCityDTO(cityRepository.save(CityHelper.toCity(cityDTO)));
 
@@ -80,13 +76,13 @@ public class CityController implements CityResource {
         }
     }
 
-    @DeleteMapping("/{ibge_id}")
+    @Override
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long ibge_id) {
         cityRepository.deleteById(ibge_id);
     }
 
-    @GetMapping
+    @Override
     public ResponseEntity<List<CityDTO>> findByColumn(
             @RequestParam("col") String col,
             @RequestParam("val") String val
@@ -96,7 +92,7 @@ public class CityController implements CityResource {
         return ResponseEntity.status(HttpStatus.OK).body(cities);
     }
 
-    @GetMapping("by/column")
+    @Override
     public ResponseEntity<Long> getQtdeByColumn(@RequestParam("col") String col) throws Exception {
         if (null != col) {
             return ResponseEntity.ok(cityRepository.getQtdeByColumn(col));
@@ -105,12 +101,12 @@ public class CityController implements CityResource {
         }
     }
 
-    @GetMapping("/total")
+    @Override
     public Long getQtdeCidades() {
         return cityRepository.count();
     }
 
-    @GetMapping("/distancia")
+    @Override
     public String getMoreDistantCities() {
         return cityService.getMoreDistantCities();
     }

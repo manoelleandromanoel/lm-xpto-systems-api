@@ -31,17 +31,4 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 ;
     }
-
-    /**
-     * - Ordenação no Swagger
-     * OperationsSorter.ALPHA - sorts API endpoints alphabetically by path
-     * OperationsSorter.METHOD - sorts API endpoints alphabetically by method
-     */
-//    @Bean
-//    public UiConfiguration uiConfig() {
-//        return UiConfigurationBuilder
-//                .builder()
-//                .operationsSorter(OperationsSorter.ALPHA)
-//                .build();
-//    }
 }
