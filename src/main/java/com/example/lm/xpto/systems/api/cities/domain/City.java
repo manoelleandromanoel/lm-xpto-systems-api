@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @Getter
 @EqualsAndHashCode
 @ToString
+@Builder
 @Entity(name = "city")
 public class City {
 

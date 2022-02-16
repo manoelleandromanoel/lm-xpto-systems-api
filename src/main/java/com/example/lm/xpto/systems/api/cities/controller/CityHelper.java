@@ -13,32 +13,32 @@ public class CityHelper {
     }
 
     public static CityDTO toCityDTO(final City city) {
-        return new CityDTO(
-                city.getIbgeId(),
-                city.getUf(),
-                city.getName(),
-                city.getCapital(),
-                city.getLon(),
-                city.getLat(),
-                city.getNoAccents(),
-                city.getAlternativeNames(),
-                city.getMicroregion(),
-                city.getMesoregion()
-        );
+        return CityDTO.builder()
+                .ibgeId(city.getIbgeId())
+                .uf(city.getUf())
+                .name(city.getName())
+                .capital(city.getCapital())
+                .lon(city.getLon())
+                .lat(city.getLat())
+                .noAccents(city.getNoAccents())
+                .alternativeNames(city.getAlternativeNames())
+                .microregion(city.getMicroregion())
+                .mesoregion(city.getMesoregion())
+                .build();
     }
 
     public static City toCity(final CityDTO cityDTO) {
-        return new City(
-                cityDTO.getIbgeId(),
-                cityDTO.getUf(),
-                cityDTO.getName(),
-                cityDTO.getCapital(),
-                cityDTO.getLon(),
-                cityDTO.getLat(),
-                cityDTO.getNoAccents(),
-                cityDTO.getAlternativeNames(),
-                cityDTO.getMicroregion(),
-                cityDTO.getMesoregion()
-        );
+        return City.builder()
+                .ibgeId(cityDTO.getIbgeId())
+                .uf(cityDTO.getUf())
+                .name(cityDTO.getName())
+                .capital(cityDTO.getCapital())
+                .lon(cityDTO.getLon())
+                .lat(cityDTO.getLat())
+                .noAccents(cityDTO.getNoAccents())
+                .alternativeNames(cityDTO.getAlternativeNames())
+                .microregion(cityDTO.getMicroregion())
+                .mesoregion(cityDTO.getMesoregion())
+                .build();
     }
 }

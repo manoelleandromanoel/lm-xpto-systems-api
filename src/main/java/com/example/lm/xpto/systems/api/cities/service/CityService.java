@@ -43,10 +43,7 @@ public class CityService {
     }
 
     public List<City> getCapitalCitiesOrderedByName() {
-        return cityRepository.findAll().stream()
-                .filter(c -> Boolean.TRUE.equals(c.getCapital()))
-                .sorted(Comparator.comparing(City::getName))
-                .collect(Collectors.toList());
+        return cityRepository.findByCapitalTrueOrderByName();
     }
 
     public List<UFNumberOfCitiesDTO> getStatesWithTheLargestAndSmallestNumberOfCities() throws Exception {

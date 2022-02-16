@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @Getter
 @EqualsAndHashCode
 @ToString
+@Builder
 public class CityDTO implements Serializable {
 
     @JsonProperty("idIBGE")
