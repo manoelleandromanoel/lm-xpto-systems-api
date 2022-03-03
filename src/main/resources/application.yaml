@@ -18,6 +18,7 @@ spring:
     username: h2sa
     password: admin
     driver-class-name: org.h2.Driver
+    platform: h2
   jackson:
     parser:
       ALLOW_NUMERIC_LEADING_ZEROS: true
