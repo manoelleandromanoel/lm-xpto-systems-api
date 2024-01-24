@@ -1,6 +1,16 @@
 package com.example.lm.xpto.systems.api.cities.domain;
 
-public enum Estado {
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.Optional;
+
+@AllArgsConstructor
+@Getter
+public enum State {
 
     ACRE("Acre", "AC"),
     ALAGOAS("Alagoas", "AL"),
@@ -30,24 +40,22 @@ public enum Estado {
     SERGIPE("Sergipe", "SE"),
     TOCANTINS("Tocantins", "TO");
 
-    private String nome;
-    private String sigla;
+    private final String name;
 
-    private Estado(String sigla) {
-        this.sigla = sigla;
+    private final String initials;
+
+    @JsonCreator
+    public static State forAlias(final String alias) {
+        Optional<State> stateOptional = Arrays.stream(values()).filter(so -> alias.equalsIgnoreCase(so.getName())).findFirst();
+        if (stateOptional.isEmpty()) {
+            throw new IllegalArgumentException(
+                    String.format("Unknown enum type %s, allowed alias are %s", alias, Arrays.toString(values())));
+        }
+        return stateOptional.get();
     }
 
-    private Estado(String nome, String sigla) {
-        this.nome = nome;
-        this.sigla = sigla;
+    @JsonValue
+    public String toName() {
+        return this.name;
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getSigla() {
-        return sigla;
-    }
-
 }

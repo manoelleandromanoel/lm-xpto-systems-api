@@ -9,5 +9,4 @@ public class LmXptoSystemsApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(LmXptoSystemsApiApplication.class, args);
     }
-
 }

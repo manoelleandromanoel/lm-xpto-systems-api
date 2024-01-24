@@ -103,7 +103,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9000/cidades/1100015",
+					"raw": "http://localhost:9000/cidades/1100189",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -111,7 +111,7 @@
 					"port": "9000",
 					"path": [
 						"cidades",
-						"1100015"
+						"1100189"
 					]
 				}
 			},
@@ -222,7 +222,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9000/cidades/by/column?col=no_accents",
+					"raw": "http://localhost:9000/cidades/by/column?col=noAccents",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -236,7 +236,7 @@
 					"query": [
 						{
 							"key": "col",
-							"value": "no_accents"
+							"value": "noAccents"
 						}
 					]
 				}
@@ -283,6 +283,5 @@
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

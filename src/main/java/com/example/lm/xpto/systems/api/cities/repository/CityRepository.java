@@ -16,4 +16,6 @@ public interface CityRepository extends JpaRepository<City, Long>, CityRepositor
             + " group by city.uf "
             + " order by city.uf ")
     List<UFNumberOfCitiesDTO> getNumberOfCitiesByState() throws Exception;
+
+    List<City> findByCapitalTrueOrderByName();
 }

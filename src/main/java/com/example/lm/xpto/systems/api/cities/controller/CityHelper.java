@@ -8,37 +8,37 @@ import java.util.stream.Collectors;
 
 public class CityHelper {
 
-    public static List<CityDTO> toCityDTOList(List<City> cities) {
+    public static List<CityDTO> toCityDTOList(final List<City> cities) {
         return cities.stream().map(CityHelper::toCityDTO).collect(Collectors.toList());
     }
 
-    public static CityDTO toCityDTO(City city) {
-        return new CityDTO(
-                city.getIbge_id(),
-                city.getUf(),
-                city.getName(),
-                city.getCapital(),
-                city.getLon(),
-                city.getLat(),
-                city.getNo_accents(),
-                city.getAlternative_names(),
-                city.getMicroregion(),
-                city.getMesoregion()
-        );
+    public static CityDTO toCityDTO(final City city) {
+        return CityDTO.builder()
+                .ibgeId(city.getIbgeId())
+                .uf(city.getUf())
+                .name(city.getName())
+                .capital(city.getCapital())
+                .lon(city.getLon())
+                .lat(city.getLat())
+                .noAccents(city.getNoAccents())
+                .alternativeNames(city.getAlternativeNames())
+                .microregion(city.getMicroregion())
+                .mesoregion(city.getMesoregion())
+                .build();
     }
 
-    public static City toCity(CityDTO cityDTO) {
-        return new City(
-                cityDTO.getIbge_id(),
-                cityDTO.getUf(),
-                cityDTO.getName(),
-                cityDTO.getCapital(),
-                cityDTO.getLon(),
-                cityDTO.getLat(),
-                cityDTO.getNo_accents(),
-                cityDTO.getAlternative_names(),
-                cityDTO.getMicroregion(),
-                cityDTO.getMesoregion()
-        );
+    public static City toCity(final CityDTO cityDTO) {
+        return City.builder()
+                .ibgeId(cityDTO.getIbgeId())
+                .uf(cityDTO.getUf())
+                .name(cityDTO.getName())
+                .capital(cityDTO.getCapital())
+                .lon(cityDTO.getLon())
+                .lat(cityDTO.getLat())
+                .noAccents(cityDTO.getNoAccents())
+                .alternativeNames(cityDTO.getAlternativeNames())
+                .microregion(cityDTO.getMicroregion())
+                .mesoregion(cityDTO.getMesoregion())
+                .build();
     }
 }

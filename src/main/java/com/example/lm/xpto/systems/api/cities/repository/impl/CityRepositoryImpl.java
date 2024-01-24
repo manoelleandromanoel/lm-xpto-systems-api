@@ -17,11 +17,11 @@ import java.util.List;
 public class CityRepositoryImpl implements CityRepositoryQuery {
 
     @PersistenceContext
-    private EntityManager manager;
+    private EntityManager entityManager;
 
     @Override
-    public List<City> findByColumn(String col, String val) throws Exception {
-        CriteriaBuilder builder = manager.getCriteriaBuilder();
+    public List<City> findByColumn(final String col, final String val) throws Exception {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<City> criteria = builder.createQuery(City.class);
         Root<City> root = criteria.from(City.class);
 
@@ -31,7 +31,7 @@ public class CityRepositoryImpl implements CityRepositoryQuery {
 
         criteria.orderBy(builder.asc(root.get(City_.NAME)));
 
-        TypedQuery<City> query = manager.createQuery(criteria);
+        TypedQuery<City> query = entityManager.createQuery(criteria);
 
         return query.getResultList();
     }
@@ -79,8 +79,8 @@ public class CityRepositoryImpl implements CityRepositoryQuery {
     }
 
     @Override
-    public Long getQtdeByColumn(String col) throws Exception {
-        CriteriaBuilder builder = manager.getCriteriaBuilder();
+    public Long getQtdeByColumn(final String col) throws Exception {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<City> criteria = builder.createQuery(City.class);
         Root<City> root = criteria.from(City.class);
 
@@ -93,12 +93,11 @@ public class CityRepositoryImpl implements CityRepositoryQuery {
                 criteria.select(root.get(col)).distinct(true);
             }
 
-            TypedQuery<City> query = manager.createQuery(criteria);
+            TypedQuery<City> query = entityManager.createQuery(criteria);
 
             return (long) query.getResultList().size();
         } catch (Exception e) {
             throw new Exception("Não foi possível contar os registros da coluna: [" + col + "]");
         }
-
     }
 }

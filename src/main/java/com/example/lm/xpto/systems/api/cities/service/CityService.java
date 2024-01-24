@@ -5,6 +5,7 @@ import com.example.lm.xpto.systems.api.cities.dto.UFNumberOfCitiesDTO;
 import com.example.lm.xpto.systems.api.cities.repository.CityRepository;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,6 @@ import java.io.Reader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -25,11 +25,12 @@ public class CityService {
 
     private final CityRepository cityRepository;
 
-    public CityService(CityRepository cityRepository) {
+    @Autowired
+    public CityService(final CityRepository cityRepository) {
         this.cityRepository = cityRepository;
     }
 
-    public List<City> uploadFile(MultipartFile file) throws Exception {
+    public List<City> uploadFile(final MultipartFile file) throws Exception {
         Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
 
         CsvToBean<City> csvToBean = new CsvToBeanBuilder<City>(reader)
@@ -42,10 +43,7 @@ public class CityService {
     }
 
     public List<City> getCapitalCitiesOrderedByName() {
-        return cityRepository.findAll().stream()
-                .filter(c -> Boolean.TRUE.equals(c.getCapital()))
-                .sorted(Comparator.comparing(City::getName))
-                .collect(Collectors.toList());
+        return cityRepository.findByCapitalTrueOrderByName();
     }
 
     public List<UFNumberOfCitiesDTO> getStatesWithTheLargestAndSmallestNumberOfCities() throws Exception {
@@ -57,27 +55,20 @@ public class CityService {
         );
     }
 
-    public List<String> getCityByState(String uf) {
-        List<City> cities = cityRepository.findAll().stream()
+    public List<String> getCityByState(final String uf) {
+        return cityRepository.findAll().stream()
                 .filter(c -> c.getUf().equalsIgnoreCase(uf))
                 .sorted(Comparator.comparing(City::getName))
+                .map(City::getNoAccents)
                 .collect(Collectors.toList());
-
-        List<String> ret = new ArrayList<>();
-
-        for (City c : cities) {
-            ret.add(c.getNo_accents());
-        }
-
-        return ret;
     }
 
     public String getMoreDistantCities() {
         List<City> allCities = cityRepository.findAll();
 
-        double ultimaDistancia = 0;
-        City cidadeDistante1 = new City();
-        City cidadeDistante2 = new City();
+        Double ultimaDistancia = 0.0;
+        City cidadeDistante1 = null;
+        City cidadeDistante2 = null;
 
         for (final City city1 : allCities) {
             for (final City city2 : allCities) {
@@ -93,12 +84,12 @@ public class CityService {
             }
         }
 
-        return "As cidades mais distantes são: " + cidadeDistante1.getNo_accents() + "/" + cidadeDistante1.getUf() +
-                " e " + cidadeDistante2.getNo_accents() + "/" + cidadeDistante2.getUf() +
+        return "As cidades mais distantes são: " + cidadeDistante1.getNoAccents() + "/" + cidadeDistante1.getUf() +
+                " e " + cidadeDistante2.getNoAccents() + "/" + cidadeDistante2.getUf() +
                 ". Distância de: " + BigDecimal.valueOf(ultimaDistancia).setScale(2, RoundingMode.HALF_UP) + " km";
     }
 
-    private double getDistance(double lat1, double long1, double lat2, double long2) {
+    private double getDistance(final Double lat1, final Double long1, final Double lat2, final Double long2) {
         int EARTH_RADIUS_KM = 6371;
 
         // Conversão de graus pra radianos das latitudes
@@ -114,5 +105,4 @@ public class CityService {
                 * Math.sin(secondLatToRad))
                 * EARTH_RADIUS_KM;
     }
-
 }
